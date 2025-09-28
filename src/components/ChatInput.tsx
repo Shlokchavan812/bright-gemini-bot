@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Send } from 'lucide-react';
+import { Search, Send } from 'lucide-react';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => Promise<void>;
@@ -22,13 +21,16 @@ export default function ChatInput({ onSendMessage, isLoading }: ChatInputProps) 
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-background border-t border-border">
-      <Input
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Type your message..."
-        disabled={isLoading}
-        className="flex-1 rounded-full border-2 border-border bg-input px-6 py-3 text-sm focus:border-primary focus:ring-primary"
-      />
+      <div className="relative flex-1">
+        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground/35 w-5 h-5" />
+        <input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="WRITE HERE"
+          disabled={isLoading}
+          className="w-full rounded-full border-2 border-border bg-input pl-12 pr-6 py-3 text-sm focus:border-primary focus:ring-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-muted-foreground/35 shadow-inner"
+        />
+      </div>
       <Button
         type="submit"
         disabled={!inputValue.trim() || isLoading}
